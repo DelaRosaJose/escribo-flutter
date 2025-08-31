@@ -14,17 +14,8 @@ dependencies:
   # For capturing the widget as an image
   screenshot: ^3.0.0 
 
-  # For saving the image to the device gallery
-  image_gallery_saver: ^2.0.3
-
   # To allow developers to easily use Google Fonts
   google_fonts: ^6.3.1
-
-  # To provide a color picker
-  flutter_colorpicker: ^1.1.0
-
-  # For downloading the image
-  download: ^1.0.1
 
 dev_dependencies:
   flutter_test:

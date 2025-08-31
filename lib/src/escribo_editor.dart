@@ -12,7 +12,7 @@ import 'package:screenshot/screenshot.dart';
 class EscriboEditor extends StatefulWidget {
   /// A callback that gets triggered when the user decides to export the
   /// final creation as an image. The callback receives the image data as a
-  /// `Uint8List`.
+  // `Uint8List`.
   final Function(Uint8List imageBytes) onSave;
 
   /// A list of `TextStyle` objects to cycle through when the font style
@@ -28,12 +28,31 @@ class EscriboEditor extends StatefulWidget {
 
   /// The placeholder text to show initially.
   ///
-  /// Defaults to an empty string `''`.
+  /// Defaults to an empty string `''`, which allows the `hintText` to be visible.
   final String initialText;
 
   /// If true, tapping on the background canvas will unfocus the text field
   /// and dismiss the keyboard. Defaults to `true`.
   final bool dismissKeyboardOnTap;
+
+  // NEW: Validation properties
+  /// Whether to validate the text before saving. Defaults to `true`.
+  /// If `true`, the save action will only proceed if the text is valid.
+  final bool validateOnSave;
+
+  /// An optional custom validation function for the text.
+  ///
+  /// If provided, this function is used to determine if the text is valid
+  /// before saving. It receives the current text and should return `true` if
+  /// the text is valid, and `false` otherwise.
+  /// If not provided, a default validation (`text.trim().isNotEmpty`) is used.
+  final bool Function(String text)? textValidator;
+
+  /// An optional callback that is triggered when the save action fails due
+  /// to a validation error.
+  ///
+  /// Use this to provide feedback to the user, like showing a SnackBar.
+  final VoidCallback? onValidationFail;
 
   /// An optional builder function to create a custom close button.
   ///
@@ -101,6 +120,9 @@ class EscriboEditor extends StatefulWidget {
     this.colorPalette = const [],
     this.initialText = '',
     this.dismissKeyboardOnTap = true,
+    this.validateOnSave = true, // NEW
+    this.textValidator, // NEW
+    this.onValidationFail, // NEW
     this.closeButtonBuilder,
     this.fontButtonBuilder,
     this.colorButtonBuilder,
@@ -201,14 +223,33 @@ class _EscriboEditorState extends State<EscriboEditor> {
     }
   }
 
+  // NEW: Updated save method with validation logic
   void _save() {
-    // Hide any overlays before taking the screenshot for a clean image
+    // Step 1: Validate the text if required
+    if (widget.validateOnSave) {
+      final text = _textController.text;
+      final bool isValid;
+
+      // Use the custom validator if provided, otherwise use the default
+      if (widget.textValidator != null) {
+        isValid = widget.textValidator!(text);
+      } else {
+        isValid = text.trim().isNotEmpty;
+      }
+
+      // If not valid, trigger the failure callback and stop
+      if (!isValid) {
+        widget.onValidationFail?.call();
+        return;
+      }
+    }
+
+    // Step 2: If validation passes (or is disabled), proceed with saving
     setState(() {
       _isColorPaletteVisible = false;
       _isFontSelectorVisible = false;
     });
 
-    // Capture the image after the state has been updated
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _screenshotController
           .capture(delay: const Duration(milliseconds: 20))
@@ -240,7 +281,6 @@ class _EscriboEditorState extends State<EscriboEditor> {
     final closeButton = widget.closeButtonBuilder?.call(context, _onClose) ??
         _buildDefaultCloseButton();
 
-    // MODIFICATION: Pass the active state to the default button builders
     final fontButton = widget.fontButtonBuilder
             ?.call(context, _toggleFontSelectorVisibility) ??
         _buildDefaultFontButton(isActive: _isFontSelectorVisible);
@@ -352,15 +392,23 @@ class _EscriboEditorState extends State<EscriboEditor> {
 
   Widget _buildAnimatedSwitcher(
       {required Widget child, required bool isVisible}) {
-    return AnimatedSlide(
-      offset: isVisible ? Offset.zero : const Offset(0, 2),
+    return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-      child: AnimatedOpacity(
-        opacity: isVisible ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 300),
-        child: isVisible ? child : null,
-      ),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        final slideAnimation = Tween<Offset>(
+          begin: const Offset(0.0, 0.5),
+          end: Offset.zero,
+        ).animate(animation);
+
+        return FadeTransition(
+          opacity: animation,
+          child: SlideTransition(
+            position: slideAnimation,
+            child: child,
+          ),
+        );
+      },
+      child: isVisible ? child : const SizedBox.shrink(),
     );
   }
 
@@ -368,7 +416,6 @@ class _EscriboEditorState extends State<EscriboEditor> {
       icon: const Icon(Icons.close, color: Colors.white, size: 30),
       onPressed: _onClose);
 
-  // MODIFICATION: Now accepts an `isActive` parameter to change the style
   Widget _buildDefaultFontButton({required bool isActive}) {
     return Container(
       decoration: isActive
@@ -383,7 +430,6 @@ class _EscriboEditorState extends State<EscriboEditor> {
     );
   }
 
-  // MODIFICATION: Now accepts an `isActive` parameter to change the style
   Widget _buildDefaultColorButton({required bool isActive}) {
     return Container(
       decoration: isActive
@@ -452,8 +498,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
     return Container(
       height: 80,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      margin: const EdgeInsets.only(
-          bottom: 10), // Add some space between font selector and color palette
+      margin: const EdgeInsets.only(bottom: 10),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
@@ -471,8 +516,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  style.fontFamily?.split('_').first ??
-                      'Font', // Clean font name
+                  style.fontFamily?.split('_').first ?? 'Font',
                   style: style.copyWith(
                       color:
                           currentStyle == style ? Colors.black : Colors.white,
