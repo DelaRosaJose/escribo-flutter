@@ -38,20 +38,7 @@ class ExampleHomePage extends StatelessWidget {
                 builder:
                     (context) => TextStatusCreator(
                       initialBackgroundColor: Colors.deepPurple,
-                      availableFonts: {
-                        'Lobster': GoogleFonts.lobster(
-                          fontSize: 32,
-                          color: Colors.white,
-                        ),
-                        'Lato': GoogleFonts.lato(
-                          fontSize: 28,
-                          color: Colors.white,
-                        ),
-                        'Pacifico': GoogleFonts.pacifico(
-                          fontSize: 26,
-                          color: Colors.white,
-                        ),
-                      },
+
                       onSave: (Uint8List imageBytes) {
                         saveOrDownloadImage(context, imageBytes);
                         Navigator.pop(context);

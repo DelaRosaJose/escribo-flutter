@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:escribo/escribo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
 import 'package:screenshot/screenshot.dart';
@@ -6,6 +7,8 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:download/download.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+
+export 'src/escribo_fonts.dart';
 
 /// A comprehensive widget for creating, customizing, and saving text-based image statuses.
 class TextStatusCreator extends StatefulWidget {
@@ -46,15 +49,9 @@ class _TextStatusCreatorState extends State<TextStatusCreator> {
     _backgroundColor = widget.initialBackgroundColor;
 
     // Provide default fonts if the developer does not supply any.
-    if (widget.availableFonts.isEmpty) {
-      _finalFonts = {
-        'Simple': GoogleFonts.lato(fontSize: 28, color: Colors.white),
-        'Impact': GoogleFonts.oswald(fontSize: 28, color: Colors.white),
-        'Cursive': GoogleFonts.pacifico(fontSize: 26, color: Colors.white),
-      };
-    } else {
-      _finalFonts = widget.availableFonts;
-    }
+    _finalFonts = widget.availableFonts.isEmpty
+        ? kEscriboDefaultFonts
+        : widget.availableFonts;
     _currentTextStyle = _finalFonts.values.first;
   }
 
