@@ -1,8 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-// ¡Importa tu propio paquete!
 import 'package:escribo/escribo.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,36 +25,24 @@ class ExampleHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Ejemplo de Escribo')),
+      appBar: AppBar(title: const Text('Escribo Example')),
       body: Center(
         child: ElevatedButton(
-          child: const Text('Crear un nuevo estado'),
+          child: const Text('Create a new status'),
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder:
-                    (context) => TextStatusCreator(
-                      initialBackgroundColor: Colors.deepPurple,
-                      availableFonts: {
-                        'Lobster': GoogleFonts.lobster(
-                          fontSize: 32,
-                          color: Colors.white,
-                        ),
-                        'Lato': GoogleFonts.lato(
-                          fontSize: 28,
-                          color: Colors.white,
-                        ),
-                        'Pacifico': GoogleFonts.pacifico(
-                          fontSize: 26,
-                          color: Colors.white,
-                        ),
-                      },
-                      onSave: (Uint8List imageBytes) {
-                        saveOrDownloadImage(context, imageBytes);
-                        Navigator.pop(context);
-                      },
-                    ),
+                builder: (context) => EscriboEditor(
+                  onSave: (Uint8List imageBytes) {
+                    // For now, just pop the navigator. 
+                    // In a real app, you would save or share the image.
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Image saved (simulated)!')),
+                    );
+                    Navigator.pop(context);
+                  },
+                ),
               ),
             );
           },
