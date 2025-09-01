@@ -420,7 +420,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
     return Container(
       decoration: isActive
           ? BoxDecoration(
-              color: Colors.white.withOpacity(0.25),
+              color: Colors.white.withValues(alpha: 0.25),
               shape: BoxShape.circle,
             )
           : null,
@@ -434,7 +434,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
     return Container(
       decoration: isActive
           ? BoxDecoration(
-              color: Colors.white.withOpacity(0.25),
+              color: Colors.white.withValues(alpha: 0.25),
               shape: BoxShape.circle,
             )
           : null,
@@ -512,7 +512,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
                 decoration: BoxDecoration(
                   color: currentStyle == style
                       ? Colors.white
-                      : Colors.black.withOpacity(0.4),
+                      : Colors.black.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
