@@ -1,24 +1,25 @@
 import 'dart:typed_data';
 import 'package:example/pages/8_color_picker_example_page.dart';
+import 'package:example/pages/9_embedded_editor_example_page.dart';
 import 'package:flutter/material.dart';
 
-// Importa la página de vista previa
+// Import preview page
 import 'preview_page.dart';
 
-// Importa todas las páginas de ejemplo
+// Import all example pages
 import 'pages/1_basic_example_page.dart';
 import 'pages/2_themed_example_page.dart';
 import 'pages/3_minimalist_layout_page.dart';
 import 'pages/4_advanced_layout_page.dart';
 import 'pages/5_validation_example_page.dart';
 import 'pages/6_branded_editor_page.dart';
-import 'pages/7_aspect_ratio_example_page.dart'; // Asegúrate de que esta importación esté presente
+import 'pages/7_aspect_ratio_example_page.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-// Navega a una página de vista previa a pantalla completa.
+// Navigate to a full-screen preview page
 void showImageSavedDialog(BuildContext context, Uint8List imageBytes) {
   Navigator.push(
     context,
@@ -55,7 +56,7 @@ class ExampleHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // CORRECCIÓN: La lista de ejemplos ahora incluye las 7 páginas.
+    // List of examples now includes all 9 pages
     final examples = [
       {
         'title': '1. Basic Example',
@@ -96,6 +97,11 @@ class ExampleHomePage extends StatelessWidget {
         'title': '8. Color Picker',
         'subtitle': 'Integrating a full color picker dialog.',
         'page': const ColorPickerExamplePage(),
+      },
+      {
+        'title': '9. Embedded Editor',
+        'subtitle': 'Displaying the editor inside a container.',
+        'page': const EmbeddedEditorExamplePage(),
       },
     ];
 

@@ -1,6 +1,6 @@
 import 'package:escribo/escribo.dart';
 import 'package:flutter/material.dart';
-import '../main.dart'; // To use the helper dialog
+import '../main.dart';
 
 class BasicExamplePage extends StatelessWidget {
   const BasicExamplePage({super.key});

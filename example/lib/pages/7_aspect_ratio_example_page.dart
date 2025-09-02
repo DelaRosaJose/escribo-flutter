@@ -1,19 +1,18 @@
 import 'package:escribo/escribo.dart';
 import 'package:flutter/material.dart';
-import '../main.dart'; // Para usar la función de vista previa de imagen
+import '../main.dart';
 
 class AspectRatioExamplePage extends StatelessWidget {
   const AspectRatioExamplePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Este ejemplo muestra cómo usar la propiedad `aspectRatio` para crear
-    // un canvas con una proporción específica, como la de una historia de Instagram.
+    // Example showing how to use aspectRatio for Instagram story format
     return EscriboEditor(
-      // Establecemos el aspect ratio a 9:16 para un formato vertical de historia.
+      // Set aspect ratio to 9:16 for vertical story format
       aspectRatio: 9 / 16,
       onSave: (imageBytes) {
-        // Al guardar, navegamos a la página de vista previa.
+        // Navigate to preview page when saving
         showImageSavedDialog(context, imageBytes);
       },
     );

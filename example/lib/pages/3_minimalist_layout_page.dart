@@ -11,7 +11,7 @@ class MinimalistLayoutPage extends StatelessWidget {
       onSave: (imageBytes) {
         showImageSavedDialog(context, imageBytes);
       },
-      // This builder completely changes the text input experience.
+      // Custom text input experience
       textEditorBuilder: (context, controller, style) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
