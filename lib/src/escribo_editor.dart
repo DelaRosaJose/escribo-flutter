@@ -214,14 +214,25 @@ class _EscriboEditorState extends State<EscriboEditor> {
 
   Widget _buildDefaultLayout(
       {required Color backgroundColor, required List<Widget> children}) {
-    // MODIFICATION: Take the pre-built canvas from the children list
+    // Para mayor claridad, extraemos los widgets de la lista
     final canvas = children[7];
+    final closeButton = children[0];
+    final fontButton = children[1];
+    final colorButton = children[2];
+    final colorPalette = children[4];
+    final saveButton = children[5];
+    final fontSelector = children[6];
 
     return Scaffold(
+      // Ya no es necesario, el layout se gestiona manualmente.
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: Stack(
         children: [
+          // El canvas centrado en el fondo
           Center(child: canvas),
+
+          // Controles superiores
           Positioned(
             top: 40,
             left: 16,
@@ -229,29 +240,47 @@ class _EscriboEditorState extends State<EscriboEditor> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                children[0], // closeButton
+                closeButton,
                 Row(children: [
-                  children[1],
+                  fontButton,
                   const SizedBox(width: 16),
-                  children[2]
+                  colorButton
                 ]),
               ],
             ),
           ),
+
+          // SOLUCIÓN: Agrupamos todos los controles inferiores en un solo Positioned
           Positioned(
             bottom: 20,
             left: 0,
             right: 0,
             child: Column(
+              mainAxisSize:
+                  MainAxisSize.min, // La columna ocupa el mínimo espacio
               children: [
+                // El selector de fuentes aparecerá aquí
                 _buildAnimatedSwitcher(
-                    child: children[6], isVisible: _isFontSelectorVisible),
+                    child: fontSelector, isVisible: _isFontSelectorVisible),
+
+                // El selector de colores aparecerá aquí
                 _buildAnimatedSwitcher(
-                    child: children[4], isVisible: _isColorPaletteVisible),
+                    child: colorPalette, isVisible: _isColorPaletteVisible),
+
+                // Alineamos el botón de guardado a la derecha
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    // Añadimos padding para que no quede pegado al borde
+                    padding: const EdgeInsets.only(
+                        right: 16.0, top: 10.0, bottom: 20),
+                    child: saveButton,
+                  ),
+                ),
               ],
             ),
           ),
-          Positioned(bottom: 20, right: 16, child: children[5]),
+
           if (widget.foregroundBuilder != null)
             widget.foregroundBuilder!(context, children),
         ],
