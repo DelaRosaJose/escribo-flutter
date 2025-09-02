@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:example/pages/8_color_picker_example_page.dart';
 import 'package:flutter/material.dart';
 
 // Importa la página de vista previa
@@ -90,6 +91,11 @@ class ExampleHomePage extends StatelessWidget {
         'title': '7. Aspect Ratio',
         'subtitle': 'Creating a 9:16 story.',
         'page': const AspectRatioExamplePage(),
+      },
+      {
+        'title': '8. Color Picker',
+        'subtitle': 'Integrating a full color picker dialog.',
+        'page': const ColorPickerExamplePage(),
       },
     ];
 
