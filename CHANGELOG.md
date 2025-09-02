@@ -1,3 +1,5 @@
-## 0.0.1
+# 1.0.0
 
-* TODO: Describe initial release.
+- **Initial release:** The first stable version of Escribo.
+- Implemented the dynamic and highly customizable text status editor.
+- Features include a ready-to-use default UI, builder functions for full customization, aspect ratio control, and validation logic.
