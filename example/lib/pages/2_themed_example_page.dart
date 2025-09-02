@@ -8,7 +8,7 @@ class ThemedExamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // A custom "Vaporwave" theme for our editor
+    // Custom "Vaporwave" theme
     final vaporwaveFonts = [
       GoogleFonts.pressStart2p(fontSize: 32, color: Colors.cyanAccent),
       GoogleFonts.majorMonoDisplay(

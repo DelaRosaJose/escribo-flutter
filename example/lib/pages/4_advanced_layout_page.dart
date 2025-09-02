@@ -30,7 +30,6 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children:
               _getColors(context).map((color) {
-                // <- Inicio del .map()
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: InkWell(
@@ -52,7 +51,7 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
                     ),
                   ),
                 );
-              }).toList(), // <- CORRECCIÓN: .toList() añadido aquí
+              }).toList(),
         );
       },
 
@@ -61,7 +60,6 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children:
               fontStyles.map((style) {
-                // <- Inicio del .map()
                 final isSelected = currentStyle == style;
                 return TextButton(
                   onPressed: () => onFontSelected(style),
@@ -77,7 +75,7 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
                     ),
                   ),
                 );
-              }).toList(), // <- CORRECCIÓN: .toList() añadido aquí
+              }).toList(),
         );
       },
 
@@ -139,7 +137,6 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children:
                         _aspectRatios.keys.map((label) {
-                          // <- Inicio del .map()
                           final value = _aspectRatios[label]!;
                           return ChoiceChip(
                             label: Text(label),
@@ -150,7 +147,7 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
                                 setState(() => _currentAspectRatio = value);
                             },
                           );
-                        }).toList(), // <- CORRECCIÓN: .toList() añadido aquí
+                        }).toList(),
                   ),
                 ),
               ],

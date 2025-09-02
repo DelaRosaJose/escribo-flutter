@@ -11,23 +11,21 @@ class PreviewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Saved Image Preview'),
-        // Usamos un botón de cerrar para que la acción sea más clara
+        // Use close button to make action clearer
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
-            // Hacemos pop dos veces para cerrar la vista previa Y el editor,
-            // volviendo así a la lista de ejemplos.
-            Navigator.of(context).pop();
+            // returning to preview
             Navigator.of(context).pop();
           },
         ),
       ),
-      // Un fondo oscuro para que la imagen resalte
+      // Dark background to make image stand out
       backgroundColor: Colors.black87,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          // El widget Image.memory es perfecto para mostrar bytes de imagen
+          // Image.memory widget is perfect for displaying image bytes
           child: Image.memory(imageBytes),
         ),
       ),

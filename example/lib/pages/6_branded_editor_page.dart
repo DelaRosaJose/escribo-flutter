@@ -11,15 +11,12 @@ class BrandedEditorPage extends StatelessWidget {
       onSave: (imageBytes) {
         showImageSavedDialog(context, imageBytes);
       },
-      // MODIFICACIÓN: Para añadir una marca de agua que SÍ sea parte de la
-      // imagen final, debemos usar un builder que renderice DENTRO de la
-      // zona de captura. `textEditorBuilder` es el lugar perfecto para esto.
+      // Add watermark that will be captured in the final image
       textEditorBuilder: (context, controller, style) {
-        // Usamos un Stack para colocar la marca de agua encima del campo de texto.
+        // Stack to place watermark above text field
         return Stack(
           children: [
-            // Primero, replicamos el comportamiento del editor de texto por defecto
-            // para que el usuario pueda seguir escribiendo normalmente.
+            // Default text editor behavior
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -37,14 +34,13 @@ class BrandedEditorPage extends StatelessWidget {
                 ),
               ),
             ),
-            // Después, añadimos nuestra marca de agua encima, que ahora
-            // SÍ será capturada por el Screenshot.
+            // Watermark that will be captured by Screenshot
             Positioned(
-              bottom: 20, // Posiciónalo dentro del canvas
+              bottom: 20, // Position within canvas
               right: 20,
               child: Row(
                 children: [
-                  const FlutterLogo(size: 20), // Un poco más pequeño
+                  const FlutterLogo(size: 20), // Smaller size
                   const SizedBox(width: 8),
                   Text(
                     'Powered by Escribo',

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:screenshot/screenshot.dart';
 
 class EscriboEditor extends StatefulWidget {
-  // ... (todas las propiedades no cambian)
+  // All properties remain unchanged
   final Function(Uint8List imageBytes) onSave;
   final List<TextStyle> fontStyles;
   final List<Color> colorPalette;
@@ -67,7 +67,7 @@ class EscriboEditor extends StatefulWidget {
 }
 
 class _EscriboEditorState extends State<EscriboEditor> {
-  // ... (el estado no cambia)
+  // State remains unchanged
   late final TextEditingController _textController;
   late List<TextStyle> _fontStyles;
   late List<Color> _colorPalette;
@@ -77,7 +77,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
   bool _isFontSelectorVisible = false;
   final ScreenshotController _screenshotController = ScreenshotController();
 
-  // ... (initState, dispose, y otros métodos no cambian)
+  // initState, dispose, and other methods remain unchanged
   @override
   void initState() {
     super.initState();
@@ -171,7 +171,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
             ?.call(context, _textController, currentStyle) ??
         _buildDefaultTextEditor(currentStyle);
 
-    // MODIFICACIÓN CRÍTICA: Construimos el canvas aquí para que esté disponible para todos los builders.
+    // CRITICAL MODIFICATION: Build canvas here so it's available for all builders
     final canvas = Screenshot(
       controller: _screenshotController,
       child: AspectRatio(
@@ -187,7 +187,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
           _buildDefaultFontButton(isActive: _isFontSelectorVisible),
       widget.colorButtonBuilder?.call(context, _toggleColorPaletteVisibility) ??
           _buildDefaultColorButton(isActive: _isColorPaletteVisible),
-      textEditor, // El editor de texto crudo
+      textEditor, // Raw text editor
       widget.colorPaletteBuilder
               ?.call(context, currentColor, _onColorSelected) ??
           _buildDefaultColorPalette(currentColor),
@@ -195,7 +195,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
       widget.fontSelectorBuilder
               ?.call(context, _fontStyles, currentStyle, _onFontSelected) ??
           _buildDefaultFontSelector(currentStyle),
-      canvas, // MODIFICACIÓN CRÍTICA: El canvas ahora es una de las "piezas".
+      canvas, // CRITICAL MODIFICATION: Canvas is now one of the "pieces"
     ];
 
     return GestureDetector(
@@ -214,7 +214,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
 
   Widget _buildDefaultLayout(
       {required Color backgroundColor, required List<Widget> children}) {
-    // MODIFICACIÓN: Tomamos el canvas pre-hecho de la lista de children.
+    // MODIFICATION: Take the pre-built canvas from the children list
     final canvas = children[7];
 
     return Scaffold(
@@ -259,7 +259,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
     );
   }
 
-  // ... (el resto de los métodos _build... no cambian)
+  // Rest of the _build methods remain unchanged
   Widget _buildAnimatedSwitcher(
       {required Widget child, required bool isVisible}) {
     return AnimatedSwitcher(

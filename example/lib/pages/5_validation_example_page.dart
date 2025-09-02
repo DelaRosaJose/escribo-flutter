@@ -13,11 +13,11 @@ class ValidationExamplePage extends StatelessWidget {
       },
       // Enable validation
       validateOnSave: true,
-      // Provide a custom rule: the text must contain "Escribo"
+      // Custom validation rule: text must contain "Escribo"
       textValidator: (text) {
         return text.toLowerCase().contains('escribo');
       },
-      // Provide feedback when validation fails
+      // Show feedback when validation fails
       onValidationFail: () {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

@@ -1,6 +1,6 @@
 import 'package:escribo/escribo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart'; // Importa el paquete
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import '../main.dart';
 
 class ColorPickerExamplePage extends StatefulWidget {
@@ -11,20 +11,19 @@ class ColorPickerExamplePage extends StatefulWidget {
 }
 
 class _ColorPickerExamplePageState extends State<ColorPickerExamplePage> {
-  // Guardamos una paleta de colores en el estado de la página.
-  // Esto nos permite modificarla y forzar la reconstrucción de EscriboEditor.
+  // Store color palette in page state to trigger EscriboEditor rebuild
   late List<Color> _palette;
 
   @override
   void initState() {
     super.initState();
-    // Inicializamos la paleta con un color por defecto.
+    // Initialize palette with default color
     _palette = [Colors.deepPurple];
   }
 
-  // Esta función abrirá el diálogo del selector de color.
+  // Open color picker dialog
   void _pickColor(BuildContext context) {
-    Color pickerColor = _palette.first; // El color actual
+    Color pickerColor = _palette.first; // Current color
 
     showDialog(
       context: context,
@@ -42,9 +41,7 @@ class _ColorPickerExamplePageState extends State<ColorPickerExamplePage> {
                 child: const Text('Done'),
                 onPressed: () {
                   setState(() {
-                    // Al presionar "Done", actualizamos nuestra paleta.
-                    // Reemplazamos el primer color con el nuevo color seleccionado.
-                    // Esto hará que EscriboEditor se reconstruya con el nuevo color disponible.
+                    // Update palette with new selected color
                     _palette[0] = pickerColor;
                   });
                   Navigator.of(context).pop();
@@ -61,18 +58,17 @@ class _ColorPickerExamplePageState extends State<ColorPickerExamplePage> {
       onSave: (imageBytes) {
         showImageSavedDialog(context, imageBytes);
       },
-      // Pasamos nuestra paleta de estado al editor.
-      // Cuando la paleta cambie, el editor se actualizará.
+      // Pass state palette to editor - will update when palette changes
       colorPalette: _palette,
 
-      // Aquí está la magia: reemplazamos el botón de color por defecto.
+      // Replace default color button with custom picker
       colorButtonBuilder: (buttonContext, toggleVisibility) {
-        // Ignoramos el callback `toggleVisibility` porque tenemos nuestro propio sistema.
+        // Ignore default toggleVisibility callback
         return IconButton(
           icon: const Icon(Icons.colorize, color: Colors.white, size: 30),
           tooltip: 'Open Color Picker',
           onPressed: () {
-            // Al presionar, llamamos a nuestra función que abre el diálogo.
+            // Open color picker dialog
             _pickColor(buttonContext);
           },
         );
