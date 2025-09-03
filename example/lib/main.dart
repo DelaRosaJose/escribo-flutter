@@ -1,19 +1,19 @@
 import 'dart:typed_data';
-import 'package:example/pages/8_color_picker_example_page.dart';
-import 'package:example/pages/9_embedded_editor_example_page.dart';
+import 'package:example/pages/_8_color_picker_example_page.dart';
+import 'package:example/pages/_9_embedded_editor_example_page.dart';
 import 'package:flutter/material.dart';
 
 // Import preview page
 import 'preview_page.dart';
 
 // Import all example pages
-import 'pages/1_basic_example_page.dart';
-import 'pages/2_themed_example_page.dart';
-import 'pages/3_minimalist_layout_page.dart';
-import 'pages/4_advanced_layout_page.dart';
-import 'pages/5_validation_example_page.dart';
-import 'pages/6_branded_editor_page.dart';
-import 'pages/7_aspect_ratio_example_page.dart';
+import 'pages/_1_basic_example_page.dart';
+import 'pages/_2_themed_example_page.dart';
+import 'pages/_3_minimalist_layout_page.dart';
+import 'pages/_4_advanced_layout_page.dart';
+import 'pages/_5_validation_example_page.dart';
+import 'pages/_6_branded_editor_page.dart';
+import 'pages/_7_aspect_ratio_example_page.dart';
 
 void main() {
   runApp(const MyApp());

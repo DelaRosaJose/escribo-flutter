@@ -545,7 +545,8 @@ class _EscriboEditorState extends State<EscriboEditor> {
       child: Container(
           decoration: isActive
               ? BoxDecoration(
-                  color: Colors.white.withOpacity(0.25), shape: BoxShape.circle)
+                  color: Colors.white.withValues(alpha: 0.25),
+                  shape: BoxShape.circle)
               : null,
           child: IconButton(
               icon:
@@ -557,7 +558,8 @@ class _EscriboEditorState extends State<EscriboEditor> {
       child: Container(
           decoration: isActive
               ? BoxDecoration(
-                  color: Colors.white.withOpacity(0.25), shape: BoxShape.circle)
+                  color: Colors.white.withValues(alpha: 0.25),
+                  shape: BoxShape.circle)
               : null,
           child: IconButton(
               icon: const Icon(Icons.palette, color: Colors.white, size: 30),
@@ -568,7 +570,8 @@ class _EscriboEditorState extends State<EscriboEditor> {
       child: Container(
           decoration: isActive
               ? BoxDecoration(
-                  color: Colors.white.withOpacity(0.25), shape: BoxShape.circle)
+                  color: Colors.white.withValues(alpha: 0.25),
+                  shape: BoxShape.circle)
               : null,
           child: IconButton(
               icon:
@@ -580,7 +583,8 @@ class _EscriboEditorState extends State<EscriboEditor> {
       child: Container(
           decoration: isActive
               ? BoxDecoration(
-                  color: Colors.white.withOpacity(0.25), shape: BoxShape.circle)
+                  color: Colors.white.withValues(alpha: 0.25),
+                  shape: BoxShape.circle)
               : null,
           child: IconButton(
               icon: const Icon(Icons.format_align_center,
@@ -658,14 +662,11 @@ class _EscriboEditorState extends State<EscriboEditor> {
                             decoration: BoxDecoration(
                                 color: currentStyle == style
                                     ? Colors.white
-                                    : Colors.black.withOpacity(0.4),
+                                    : Colors.black.withValues(alpha: 0.4),
                                 borderRadius: BorderRadius.circular(20)),
                             child: Text(
                                 widget.showSingleLetterInFontSelector
-                                    ? (style.fontFamily
-                                                ?.split('_')
-                                                .first
-                                                .isNotEmpty ==
+                                    ? (style.fontFamily?.split('_').first.isNotEmpty ==
                                             true
                                         ? style.fontFamily!
                                             .split('_')
@@ -719,7 +720,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
                         decoration: BoxDecoration(
                           color: (_currentFontSize - size).abs() < 0.1
                               ? Colors.white
-                              : Colors.black.withOpacity(0.4),
+                              : Colors.black.withValues(alpha: 0.4),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Text(
@@ -765,7 +766,7 @@ class _EscriboEditorState extends State<EscriboEditor> {
                     decoration: BoxDecoration(
                       color: _currentTextAlign == alignment['align']
                           ? Colors.white
-                          : Colors.black.withOpacity(0.4),
+                          : Colors.black.withValues(alpha: 0.4),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(

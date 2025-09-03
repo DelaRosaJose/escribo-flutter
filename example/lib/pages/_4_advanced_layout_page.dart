@@ -105,7 +105,7 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
                       Expanded(child: Center(child: canvas)),
                       Container(
                         width: 120,
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withValues(alpha: 0.2),
                         child: ScrollConfiguration(
                           behavior: ScrollConfiguration.of(context).copyWith(
                             scrollbars: false,
@@ -143,7 +143,7 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withValues(alpha: 0.2),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children:
@@ -154,8 +154,9 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
                             selectedColor: Colors.teal,
                             selected: _currentAspectRatio == value,
                             onSelected: (isSelected) {
-                              if (isSelected)
+                              if (isSelected) {
                                 setState(() => _currentAspectRatio = value);
+                              }
                             },
                           );
                         }).toList(),
