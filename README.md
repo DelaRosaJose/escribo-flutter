@@ -151,7 +151,7 @@ EscriboEditor(
           right: 20,
           child: Text(
             'Powered by My App',
-            style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 14),
+            style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 14),
           ),
         ),
       ],
