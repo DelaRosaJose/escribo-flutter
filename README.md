@@ -8,10 +8,8 @@ A Flutter package to easily create and customize text-based stories or statuses,
 
 <br>
 
-<p align="center">
-  <video src="https://github.com/user-attachments/assets/963ca75c-ad0d-48ef-bd4d-51064dd5dcec" autoplay loop muted playsinline width="300">
-  </video>
-</p>
+![Demo](https://github.com/user-attachments/assets/6616153f-1ad9-495a-acb7-dfa7ef00b19c)
+
 
 ## ✨ Features
 
