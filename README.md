@@ -8,13 +8,6 @@ A Flutter package to easily create and customize text-based stories or statuses,
 
 <br>
 
-<!-- 
-====================================================================================
-¡¡¡IMPORTANTE!!!
-REEMPLAZA ESTA URL CON EL ENLACE A TU VIDEO DE DEMOSTRACIÓN.
-Sube el video a un "issue" en tu repo de GitHub para obtener un enlace público.
-====================================================================================
--->
 <p align="center">
   <video src="https://github.com/user-attachments/assets/963ca75c-ad0d-48ef-bd4d-51064dd5dcec" autoplay loop muted playsinline width="300">
   </video>
@@ -29,6 +22,9 @@ Sube el video a un "issue" en tu repo de GitHub para obtener un enlace público.
 - **🖼️ Configurable Aspect Ratio:** Create square (1:1), widescreen (16:9), or portrait (4:5) images.
 - **✅ Built-in Validation:** Prevent users from saving empty statuses and provide custom validation rules.
 - **📸 High-Quality Image Export:** Captures the canvas as a `Uint8List`, ready to be saved or shared.
+- **🔤 Single Letter Font Display:** Option to show single letters instead of full font names for a cleaner UI.
+- **📏 Font Size Control:** Allow users to adjust text size with customizable size ranges and controls.
+- **📐 Text Alignment Control:** Enable users to choose text alignment (left, center, right, justify).
 
 ## 🚀 Getting Started
 
@@ -148,7 +144,7 @@ EscriboEditor(
             decoration: const InputDecoration(border: InputBorder.none),
           ),
         ),
-        
+
         // Your watermark
         Positioned(
           bottom: 20,
@@ -194,29 +190,108 @@ EscriboEditor(
 )
 ```
 
+### 5. Enhanced Features: Single Letter Fonts, Font Size & Text Alignment
+
+Escribo now includes advanced text editing features that give users more control over their content.
+
+```dart
+EscriboEditor(
+  onSave: (bytes) => print('Image saved!'),
+
+  // Show single letters instead of full font names
+  showSingleLetterInFontSelector: true,
+
+  // Enable font size control
+  enableFontSizeControl: true,
+  availableFontSizes: [16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72],
+  minFontSize: 16.0,
+  maxFontSize: 72.0,
+
+  // Enable text alignment control
+  enableTextAlignmentControl: true,
+
+  // Custom font size control (optional)
+  fontSizeControlBuilder: (context, currentFontSize, onFontSizeChanged) {
+    return Container(
+      height: 60,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          Text('Font Size: ${currentFontSize.toInt()}',
+               style: const TextStyle(color: Colors.white70)),
+          Slider(
+            value: currentFontSize,
+            min: 16.0,
+            max: 72.0,
+            onChanged: onFontSizeChanged,
+          ),
+        ],
+      ),
+    );
+  },
+
+  // Custom text alignment control (optional)
+  textAlignmentControlBuilder: (context, currentAlignment, onAlignmentChanged) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () => onAlignmentChanged(TextAlign.left),
+          icon: Icon(Icons.format_align_left,
+                     color: currentAlignment == TextAlign.left ? Colors.white : Colors.white54),
+        ),
+        IconButton(
+          onPressed: () => onAlignmentChanged(TextAlign.center),
+          icon: Icon(Icons.format_align_center,
+                     color: currentAlignment == TextAlign.center ? Colors.white : Colors.white54),
+        ),
+        IconButton(
+          onPressed: () => onAlignmentChanged(TextAlign.right),
+          icon: Icon(Icons.format_align_right,
+                     color: currentAlignment == TextAlign.right ? Colors.white : Colors.white54),
+        ),
+        IconButton(
+          onPressed: () => onAlignmentChanged(TextAlign.justify),
+          icon: Icon(Icons.format_align_justify,
+                     color: currentAlignment == TextAlign.justify ? Colors.white : Colors.white54),
+        ),
+      ],
+    );
+  },
+)
+```
+
 ## 📚 API Reference
 
 ### `EscriboEditor` Parameters
 
-| Parameter                  | Type                                      | Description                                                                                             |
-| -------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| **`onSave` (Required)**    | `Function(Uint8List)`                     | Callback triggered with the image data when the save button is pressed.                                 |
-| `fontStyles`               | `List<TextStyle>`                         | A list of custom `TextStyle` objects for the font selector.                                             |
-| `colorPalette`             | `List<Color>`                             | A list of custom `Color` objects for the color palette.                                                 |
-| `initialText`              | `String`                                  | The initial text displayed in the editor. Defaults to `''`.                                             |
-| `aspectRatio`              | `double`                                  | The aspect ratio of the final image. Defaults to `1.0` (square).                                        |
-| `validateOnSave`           | `bool`                                    | If `true` (default), prevents saving if the text is empty.                                              |
-| `textValidator`            | `bool Function(String)?`                  | A custom function to validate the text before saving.                                                   |
-| `onValidationFail`         | `VoidCallback?`                           | A callback triggered if validation fails. Perfect for showing a `SnackBar`.                             |
-| `dismissKeyboardOnTap`     | `bool`                                    | If `true` (default), tapping the background dismisses the keyboard.                                     |
-| `closeButtonBuilder`       | `Widget Function(context, onClose)?`      | Builder for a custom close button.                                                                      |
-| `fontButtonBuilder`        | `Widget Function(context, toggle)?`       | Builder for a custom font toggle button.                                                                |
-| `colorButtonBuilder`       | `Widget Function(context, toggle)?`       | Builder for a custom color toggle button.                                                               |
-| `textEditorBuilder`        | `Widget Function(context, controller, style)?` | Builder for a custom text editing area. Content inside **is** captured.                               |
-| `colorPaletteBuilder`      | `Widget Function(context, color, onSelect)?` | Builder for a custom color palette widget.                                                            |
-| `fontSelectorBuilder`      | `Widget Function(context, fonts, style, onSelect)?` | Builder for a custom font selector widget.                                                          |
-| `foregroundBuilder`        | `Widget Function(context, children)?`     | Builder to add widgets on top of the default UI. Content **is not** captured in the image.              |
-| `layoutBuilder`            | `Widget Function(context, children, color, style)?` | The ultimate builder for a complete UI overhaul. Replaces the entire default layout.                |
+| Parameter                        | Type                                                | Description                                                                                |
+| -------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **`onSave` (Required)**          | `Function(Uint8List)`                               | Callback triggered with the image data when the save button is pressed.                    |
+| `fontStyles`                     | `List<TextStyle>`                                   | A list of custom `TextStyle` objects for the font selector.                                |
+| `showSingleLetterInFontSelector` | `bool`                                              | Show single letters instead of full font names in the font selector. Default: `false`.     |
+| `enableFontSizeControl`          | `bool`                                              | Enable font size control for users. Default: `false`.                                      |
+| `enableTextAlignmentControl`     | `bool`                                              | Enable text alignment control for users. Default: `false`.                                 |
+| `availableFontSizes`             | `List<double>?`                                     | Custom list of available font sizes. If null, uses default range.                          |
+| `minFontSize`                    | `double`                                            | Minimum font size allowed. Default: `12.0`.                                                |
+| `maxFontSize`                    | `double`                                            | Maximum font size allowed. Default: `72.0`.                                                |
+| `colorPalette`                   | `List<Color>`                                       | A list of custom `Color` objects for the color palette.                                    |
+| `initialText`                    | `String`                                            | The initial text displayed in the editor. Defaults to `''`.                                |
+| `aspectRatio`                    | `double`                                            | The aspect ratio of the final image. Defaults to `1.0` (square).                           |
+| `validateOnSave`                 | `bool`                                              | If `true` (default), prevents saving if the text is empty.                                 |
+| `textValidator`                  | `bool Function(String)?`                            | A custom function to validate the text before saving.                                      |
+| `onValidationFail`               | `VoidCallback?`                                     | A callback triggered if validation fails. Perfect for showing a `SnackBar`.                |
+| `dismissKeyboardOnTap`           | `bool`                                              | If `true` (default), tapping the background dismisses the keyboard.                        |
+| `closeButtonBuilder`             | `Widget Function(context, onClose)?`                | Builder for a custom close button.                                                         |
+| `fontButtonBuilder`              | `Widget Function(context, toggle)?`                 | Builder for a custom font toggle button.                                                   |
+| `colorButtonBuilder`             | `Widget Function(context, toggle)?`                 | Builder for a custom color toggle button.                                                  |
+| `textEditorBuilder`              | `Widget Function(context, controller, style)?`      | Builder for a custom text editing area. Content inside **is** captured.                    |
+| `colorPaletteBuilder`            | `Widget Function(context, color, onSelect)?`        | Builder for a custom color palette widget.                                                 |
+| `fontSelectorBuilder`            | `Widget Function(context, fonts, style, onSelect)?` | Builder for a custom font selector widget.                                                 |
+| `fontSizeControlBuilder`         | `Widget Function(context, fontSize, onChanged)?`    | Builder for a custom font size control widget.                                             |
+| `textAlignmentControlBuilder`    | `Widget Function(context, alignment, onChanged)?`   | Builder for a custom text alignment control widget.                                        |
+| `foregroundBuilder`              | `Widget Function(context, children)?`               | Builder to add widgets on top of the default UI. Content **is not** captured in the image. |
+| `layoutBuilder`                  | `Widget Function(context, children, color, style)?` | The ultimate builder for a complete UI overhaul. Replaces the entire default layout.       |
 
 ## 🤝 Contributing
 

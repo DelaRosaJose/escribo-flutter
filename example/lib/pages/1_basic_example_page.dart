@@ -11,6 +11,8 @@ class BasicExamplePage extends StatelessWidget {
       onSave: (imageBytes) {
         showImageSavedDialog(context, imageBytes);
       },
+      enableFontSizeControl: true,
+      enableTextAlignmentControl: true,
     );
   }
 }

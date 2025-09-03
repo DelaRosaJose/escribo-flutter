@@ -1,4 +1,5 @@
 import 'package:escribo/escribo.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 
@@ -105,25 +106,35 @@ class _AdvancedLayoutPageState extends State<AdvancedLayoutPage> {
                       Container(
                         width: 120,
                         color: Colors.black.withOpacity(0.2),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Fonts',
-                                style: TextStyle(color: Colors.white70),
-                              ),
-                              const Divider(color: Colors.white24),
-                              fontSelector,
-                              const SizedBox(height: 30),
-                              const Text(
-                                'Colors',
-                                style: TextStyle(color: Colors.white70),
-                              ),
-                              const Divider(color: Colors.white24),
-                              colorPalette,
-                              const SizedBox(height: 20),
-                            ],
+                        child: ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context).copyWith(
+                            scrollbars: false,
+                            dragDevices: {
+                              PointerDeviceKind.touch,
+                              PointerDeviceKind.mouse,
+                              PointerDeviceKind.trackpad,
+                            },
+                          ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                const Text(
+                                  'Fonts',
+                                  style: TextStyle(color: Colors.white70),
+                                ),
+                                const Divider(color: Colors.white24),
+                                fontSelector,
+                                const SizedBox(height: 30),
+                                const Text(
+                                  'Colors',
+                                  style: TextStyle(color: Colors.white70),
+                                ),
+                                const Divider(color: Colors.white24),
+                                colorPalette,
+                                const SizedBox(height: 20),
+                              ],
+                            ),
                           ),
                         ),
                       ),
