@@ -1,6 +1,6 @@
 name: escribo
 description: A Flutter package to easily create and customize text-based stories, similar to Instagram statuses. Choose fonts, backgrounds, and export the result as an image.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/DelaRosaJose/escribo-flutter 
 repository: https://github.com/DelaRosaJose/escribo-flutter
 issue_tracker: https://github.com/DelaRosaJose/escribo-flutter/issues
